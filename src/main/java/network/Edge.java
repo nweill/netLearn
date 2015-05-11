@@ -5,6 +5,7 @@ public class Edge {
 	private Node source;
 	private Node target;
 	private EdgeInfo edgeInfo;
+	public double weight;
 
 	public Edge(boolean oriented, Node source, Node target, EdgeInfo edgeInfo) {
 		super();
@@ -12,6 +13,12 @@ public class Edge {
 		this.source = source;
 		this.target = target;
 		this.setEdgeInfo(edgeInfo);
+		this.weight = 1;
+	}
+	public Edge(boolean oriented, Node source, Node target, EdgeInfo edgeInfo,double weight) {
+		
+		this(oriented,source,target,edgeInfo);
+		this.weight = weight;
 	}
 
 	public Node getSource() {

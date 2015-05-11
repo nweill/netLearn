@@ -15,6 +15,22 @@ public class Info {
 		super();
 		this.name = name;
 	}
-	
+
+	public String toString() {
+		return this.name;
+	}
+
+	public boolean equals(Object o) {
+		if (o == null)
+			return false;
+		if (o instanceof NodeInfo) {
+			NodeInfo n = (NodeInfo) o;
+			if (n.getName().equals(this.name))
+				return true;
+		}
+
+		return false;
+
+	}
 
 }

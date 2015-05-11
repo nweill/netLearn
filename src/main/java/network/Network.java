@@ -5,7 +5,6 @@ import java.util.TreeMap;
 
 import weka.core.matrix.Matrix;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class Network {
@@ -40,7 +39,8 @@ public class Network {
 		this.nodes = nodes;
 		this.edges = edges;
 		mats = Maps.newTreeMap();
-		createMatrix();
+		createMatAndAdjancies();
+		
 		mats.put(1,this.mat);
 		
 	}
@@ -54,9 +54,10 @@ public class Network {
 		return true;
 	}
 	
-	private void createMatrix(){
-		this.mat = new Matrix(this.nodes.size(), this.nodes.size());
+	private void createMatAndAdjancies(){
+		this.mat = new Matrix(this.nodes.size()+1, this.nodes.size()+1);
 		for (Edge e : edges){
+			e.getSource().adjacencies.add(e);
 			mat.set(e.getSource().getId(), e.getTarget().getId(), 1);
 		}
 	}
@@ -74,12 +75,13 @@ public class Network {
 			return m;
 		}
 	}
+	public void initializeMinDist() {
+		for (Node n : nodes){
+			n.minDistance=Double.POSITIVE_INFINITY;
+			n.previous = null;
+		}
+	}
 	
 	
 	
-	
-	
-
-	
-
 }

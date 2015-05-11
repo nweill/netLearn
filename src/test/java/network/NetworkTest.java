@@ -3,6 +3,9 @@ package network;
 import java.util.List;
 import java.util.Random;
 
+import static org.junit.Assert.*;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
@@ -31,6 +34,9 @@ public class NetworkTest {
 		Network net = new Network(new NetworkInfo("net1"), nodes, edges);
 		System.out.println(net.getMatN(1));
 		System.out.println(net.getMatN(200));
+		System.out.println(net.getMatN(0));
+		System.out.println(net.getMatN(20));
+		Assert.assertEquals(19.0, net.getMatN(20).get(5, 8),0.0);
 
 	}
 

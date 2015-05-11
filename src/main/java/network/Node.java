@@ -2,9 +2,14 @@ package network;
 
 import java.util.List;
 
-public class Node {
+import com.google.common.collect.Lists;
+
+public class Node implements Comparable<Node>{
 	private NodeInfo info;
 	private int id;
+	public double minDistance=Double.POSITIVE_INFINITY;
+	public List<Edge> adjacencies;
+	public Node previous;
 	
 	public int getId() {
 		return id;
@@ -15,6 +20,7 @@ public class Node {
 		
 		this.info = info;
 		this.id = id;
+		this.adjacencies = Lists.newArrayList();
 	}
 
 	
@@ -39,5 +45,13 @@ public class Node {
 		return false;
 		
 	}
+	
+	public String toString(){
+		return this.info.toString();
+	}
 
+	 public int compareTo(Node other)
+	    {
+	        return Double.compare(minDistance, other.minDistance);
+	    }
 }
