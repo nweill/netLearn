@@ -1,6 +1,9 @@
 package network;
 
-public class NodeInfo {
-	String name;
+public class NodeInfo extends Info{
+
+	public NodeInfo(String name) {
+		super(name);
+	}
 
 }

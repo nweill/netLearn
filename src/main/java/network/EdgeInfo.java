@@ -1,6 +1,11 @@
 package network;
 
-public class EdgeInfo {
-	String name;
+public class EdgeInfo extends Info{
+
+	public EdgeInfo(String name) {
+		super(name);
+		
+	}
+
 
 }

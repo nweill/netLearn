@@ -3,23 +3,21 @@ package network;
 import java.util.List;
 
 public class Node {
-	private List<Edge> edges;
 	private NodeInfo info;
+	private int id;
 	
-	public Node(List<Edge> edges, NodeInfo info) {
+	public int getId() {
+		return id;
+	}
+
+	public Node( NodeInfo info,int id) {
 		super();
-		this.edges = edges;
+		
 		this.info = info;
+		this.id = id;
 	}
 
-	public List<Edge> getEdges() {
-		return edges;
-	}
-
-	public void setEdges(List<Edge> edges) {
-		this.edges = edges;
-	}
-
+	
 	public NodeInfo getInfo() {
 		return info;
 	}
