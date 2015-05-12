@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import network.Edge;
-import network.EdgeInfo;
 import network.Network;
 import network.Node;
 import network.NodeInfo;
@@ -20,7 +19,6 @@ public class Text2Net {
 	public static Network read(String text, TextCleaner tc){
 		
 		String cleanText = tc.clean(text);
-		System.out.println(cleanText);
 		String [] words = cleanText.split(wordSep);
 		if (words.length <2) {
 			System.out.println("O_o");
@@ -51,7 +49,6 @@ public class Text2Net {
 		}
 		
 		Network res = new Network(nodes, edges);
-		System.out.println(res);
 		return res;
 		
 	}

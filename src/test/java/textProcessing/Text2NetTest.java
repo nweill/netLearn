@@ -7,6 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import network.Network;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 public class Text2NetTest {
@@ -21,8 +24,8 @@ public class Text2NetTest {
 			while ((line=br.readLine())!=null){
 				sb.append(line+" ");
 			}
-			System.out.println(sb);
-			Text2Net.read(sb.toString(), TextCleaner.defaultTextCleaner);
+			Network res = Text2Net.read(sb.toString(), TextCleaner.defaultTextCleaner);
+			Assert.assertTrue(res.toString().equals("Net-N-742-E-2330"));
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
