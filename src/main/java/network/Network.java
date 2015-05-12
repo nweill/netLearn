@@ -48,6 +48,9 @@ public class Network {
 		
 	}
 	
+	public Network(List<Node> nodes, List<Edge> edges) {
+		this(new NetworkInfo("Net-N-"+nodes.size()+"-E-"+edges.size()), nodes, edges);
+	}
 	public boolean isOriented(){
 		
 		for (Edge e : edges){

@@ -6,6 +6,10 @@ public class Edge {
 	private Node target;
 	private EdgeInfo edgeInfo;
 	public double weight;
+	
+	public Edge(boolean oriented, Node source, Node target) {
+		this(oriented,source,target,new EdgeInfo(source+"-"+target));
+	}
 
 	public Edge(boolean oriented, Node source, Node target, EdgeInfo edgeInfo) {
 		super();
