@@ -40,6 +40,9 @@ public class Edge {
 	public boolean isOriented() {
 		return oriented;
 	}
+	public String toString(){
+		return this.edgeInfo.toString();
+	}
 
 	@Override
 	public boolean equals(Object e){

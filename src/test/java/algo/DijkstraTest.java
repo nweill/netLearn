@@ -53,7 +53,7 @@ public class DijkstraTest {
 
 		System.out.println("from "+n+" to " + v + ": " + v.minDistance);
 		
-		List<Node> path = Dijkstra.getShortestPathTo(v);
+		List<Node> path = Dijkstra.getShortestPathTo(v,net);
 		System.out.println("Path: " + path);
 		Assert.assertEquals("[Purpleville, Blueville, Greenville]", ""+path);
 		Assert.assertEquals(10.0,v.minDistance,0.0);

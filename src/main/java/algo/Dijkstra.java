@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import org.junit.Assert;
+
 import com.google.common.collect.Lists;
 
 import network.Edge;
@@ -16,8 +18,10 @@ import network.NodeInfo;
 
 public class Dijkstra
 {
-	public static void computePaths(Network net,Node source)
+	public static void computePaths(Network net,Node s)
 	{
+		Assert.assertTrue(net.getNodes().contains(s));
+		Node source = net.getNodes().get(net.getNodes().indexOf(s));
 		net.initializeMinDist();
 		source.minDistance = 0.;
 		PriorityQueue<Node> vertexQueue = new PriorityQueue<Node>();
@@ -25,7 +29,6 @@ public class Dijkstra
 
 		while (!vertexQueue.isEmpty()) {
 			Node u = vertexQueue.poll();
-
 			// Visit each edge exiting u
 			for (Edge e : u.adjacencies)
 			{
@@ -42,11 +45,12 @@ public class Dijkstra
 		}
 	}
 
-	public static List<Node> getShortestPathTo(Node target)
+	public static List<Node> getShortestPathTo(Node t,Network net)
 	{
+		Assert.assertTrue(net.getNodes().contains(t));
+		Node target = net.getNodes().get(net.getNodes().indexOf(t));
 		List<Node> path = new ArrayList<Node>();
 		for (Node vertex = target; vertex != null; vertex = vertex.previous){
-			
 			path.add(vertex);
 		}
 		Collections.reverse(path);

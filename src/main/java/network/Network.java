@@ -33,9 +33,12 @@ public class Network {
 		this.edges = edges;
 	}
 	
-	public Network(NetworkInfo netInfo, List<Node> nodes, List<Edge> edges) {
+	public Network(NetworkInfo netInfo, List<Node> nodes, List<Edge> edges ) {
 		super();
-		this.netInfo = netInfo;
+		if (netInfo == null)
+			this.netInfo = new NetworkInfo("net-N-"+nodes.size()+"-E-"+edges.size());
+		else
+			this.netInfo = netInfo;
 		this.nodes = nodes;
 		this.edges = edges;
 		mats = Maps.newTreeMap();
@@ -82,6 +85,9 @@ public class Network {
 		}
 	}
 	
+	public String toString(){
+		return this.netInfo.toString();
+	}
 	
 	
 }
