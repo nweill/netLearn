@@ -17,7 +17,9 @@ public interface TextCleaner {
 		
 		public String clean(String in) {
 			String res = in.toLowerCase();
-			res = res.replaceAll("["+unknownChars+space+"]", "");
+			res = res.replaceAll("["
+//			+unknownChars
+			+space+"]", "");
 			return res;
 		}
 	};

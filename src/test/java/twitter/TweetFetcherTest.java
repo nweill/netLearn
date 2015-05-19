@@ -16,7 +16,7 @@ public class TweetFetcherTest {
 	@Test
 	public void test() {
 		try {
-			TweetFetcher.fetch();
+			TweetFetcher.fetch(10);
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -27,7 +27,7 @@ public class TweetFetcherTest {
 	@Test
 	public void testToNet() {
 		try {
-			List<Status> l = TweetFetcher.fetch();
+			List<Status> l = TweetFetcher.fetch(10);
 			for (Status s:l){
 				Network net = Text2Net.readSmallText(s.getText(), TextCleaner.smallTextCleaner,5);
 				System.out.println(s.getText());

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.junit.Assert;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -30,7 +31,6 @@ public class Distribution {
 		for (int i = 0 ; i<numOfBeans ; i++){
 			res.put(min +i*range,i);
 		}
-		res.put(max,numOfBeans);
 		return res;
 	}
 	
@@ -44,6 +44,7 @@ public class Distribution {
 	
 	
 	public Distribution(List<Double> values,TreeMap<Double,Integer> beans,boolean frequency){
+		Assert.assertTrue(beans.size()>1);
 		this.values = values;
 		this.beans = beans;
 		this.frequency = frequency;
@@ -51,10 +52,18 @@ public class Distribution {
 		
 	}
 	
+	public List<Double> getDistribution() {
+		return distribution;
+	}
+
 	private void create(){
+		
+		for (int i = 0 ; i < beans.size()  ; i++)
+			distribution.add(0.0);
 		for (Double d : values){
 			int id = beans.floorEntry(d).getValue();
-			this.distribution.set(id,this.distribution.get(id)+1);
+			double old = this.distribution.get(id);
+			this.distribution.set(id,old+1);
 		}
 		if (frequency)
 			for (int i = 0 ; i< distribution.size() ; i++)
@@ -66,7 +75,9 @@ public class Distribution {
 		StringBuilder sb = new StringBuilder();
 		List<Double> beanList = new ArrayList<Double>(beans.keySet()); 
 		for (int i = 0 ; i < distribution.size() ; i++){
-			sb.append(beanList.get(i) + "; " + beanList.get(i+1) + " : "+distribution.get(i));
+			sb.append(
+					beanList.get(i) +  
+					" : "+distribution.get(i)+"\n");
 		}
 		return sb.toString();
 	}

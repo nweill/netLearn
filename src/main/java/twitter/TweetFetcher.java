@@ -12,7 +12,7 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class TweetFetcher {
-	public static List<Status> fetch() throws TwitterException{
+	public static List<Status> fetch(int numOfTweet) throws TwitterException{
 
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
@@ -24,15 +24,15 @@ public class TweetFetcher {
 		Twitter twitter = tf.getInstance();
 
 		Query query = new Query().geoCode(new GeoLocation( 45.508669900000000000,-73.553992499999990000), 50.0, "km"); 
-		query.count(15); //You can also set the number of tweets to return per page, up to a max of 100
+		query.count(numOfTweet); //You can also set the number of tweets to return per page, up to a max of 100
 		QueryResult result = twitter.search(query);
 
 		List<Status> statuses = result.getTweets();
-		for (Status s : statuses){
-			System.out.println((s.isTruncated()));
-			System.out.println(s.getText());
-			System.out.println(s.getLang());
-		}
+//		for (Status s : statuses){
+//			System.out.println((s.isTruncated()));
+//			System.out.println(s.getText());
+//			System.out.println(s.getLang());
+//		}
 		return statuses;
 		
 
