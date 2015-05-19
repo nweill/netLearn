@@ -23,10 +23,13 @@ public class Info {
 	public boolean equals(Object o) {
 		if (o == null)
 			return false;
-		if (o instanceof NodeInfo) {
-			NodeInfo n = (NodeInfo) o;
-			if (n.getName().equals(this.name))
+		if (o instanceof Info) {
+			Info i = (Info) o;
+			if (i.getName().equals(this.name)){
+
 				return true;
+				
+			}
 		}
 
 		return false;

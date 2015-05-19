@@ -6,6 +6,10 @@ public class NodeInfo extends Info{
 		super(name);
 	}
 	
+	public boolean equals(Object o){
+		return super.equals(o);
+	}
+	
 
 
 }
