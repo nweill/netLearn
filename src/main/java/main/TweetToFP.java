@@ -27,46 +27,50 @@ public class TweetToFP {
 	static int numOfBeans = 20;
 	public static void main(String[] args) {
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
+
+			BufferedWriter bw = new BufferedWriter(new FileWriter("out.csv"));
 			bw.write(FormatFP.getHeader(20*2+2+2, ",")+"\n");
-			List<Status> tweets = TweetFetcher.fetch(100);
 			HashSet<Integer> memory = Sets.newHashSet();
-			for (Status s : tweets){
-				List<Double> FP = Lists.newArrayList();
-				
-				memory.add(s.getText().hashCode());
-			
-				Network net = Text2Net.readSmallText(s.getText(), TextCleaner.smallTextCleaner, window);
-				if (net.getNodes().size() < window*2)
-					continue;
-				
-				List<Double> betCen = CentralityMetrics.getBetweenesCentrality(net);
-				List<Double> degs = CentralityMetrics.getDegrees(net);
+			for (int k = 0 ; k < 20 ; k++){
+				List<Status> tweets = TweetFetcher.fetch(100);
+				for (Status s : tweets){
+					List<Double> FP = Lists.newArrayList();
+					if (memory.contains(s.getText().hashCode()))
+						continue;
+					memory.add(s.getText().hashCode());
 
-				System.out.println("TWEET = "+s.getText());
-				System.out.println(s.getRetweetCount());
-				System.out.println(s.getRetweetedStatus()!=null);
-				System.out.println(s.getUser().getFollowersCount());
-				System.out.println("NODES = "+ net.getNodes());
-				System.out.println("NET = "+net);
-				Distribution d = new Distribution(betCen,Distribution.generateBeans(betCen,numOfBeans), false);
-				List<Double> distBetCen = d.getDistribution();
+					Network net = Text2Net.readSmallText(s.getText(), TextCleaner.smallTextCleaner, window);
+					if (net.getEdges().size() <= window*2|| net.getEdges().size() <2)
+						continue;
 
-				d = new Distribution(degs,Distribution.generateBeans(degs,numOfBeans), false);
-				List<Double> distDegs = d.getDistribution();
-				FP.add(s.getText().hashCode()*1.0);
-				FP.addAll(distBetCen);
-				FP.add(Entropy.entropyOf(distBetCen, false));
-				FP.addAll(distDegs);
-				FP.add(Entropy.entropyOf(distDegs,false));
-				FP.add(s.getUser().getFollowersCount()*1.0);
+					List<Double> betCen = CentralityMetrics.getBetweenesCentrality(net);
+					List<Double> degs = CentralityMetrics.getDegrees(net);
 
-				System.out.println("BETCEN = " + betCen);
-				System.out.println("BETCENDIST = " + distBetCen);
-				System.out.println("DEGS = " + degs);
-				System.out.println("DEGDIST = " + distDegs);
-				System.out.println("FP = "+FP.size() +" "+FP);
-				bw.write(FormatFP.list2String(FP, ",")+"\n");
+					//				System.out.println("TWEET = "+s.getText());
+					//				System.out.println(s.getRetweetCount());
+					//				System.out.println(s.getRetweetedStatus()!=null);
+					//				System.out.println(s.getUser().getFollowersCount());
+					//				System.out.println("NODES = "+ net.getNodes());
+					System.out.println("NET = "+net);
+					Distribution d = new Distribution(betCen,Distribution.generateBeans(betCen,numOfBeans), false);
+					List<Double> distBetCen = d.getDistribution();
+
+					d = new Distribution(degs,Distribution.generateBeans(degs,numOfBeans), false);
+					List<Double> distDegs = d.getDistribution();
+					FP.add(s.getText().hashCode()*1.0);
+					FP.addAll(distBetCen);
+					FP.add(Entropy.entropyOf(distBetCen, false));
+					FP.addAll(distDegs);
+					FP.add(Entropy.entropyOf(distDegs,false));
+					FP.add(Math.log(s.getUser().getFollowersCount())*1.0);
+
+					//				System.out.println("BETCEN = " + betCen);
+					//				System.out.println("BETCENDIST = " + distBetCen);
+					//				System.out.println("DEGS = " + degs);
+					//				System.out.println("DEGDIST = " + distDegs);
+					//				System.out.println("FP = "+FP.size() +" "+FP);
+					bw.write(FormatFP.list2String(FP, ",")+"\n");
+				}
 			}
 			bw.close();
 

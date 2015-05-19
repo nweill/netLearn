@@ -23,7 +23,7 @@ public class TweetFetcher {
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 
-		Query query = new Query().geoCode(new GeoLocation( 45.508669900000000000,-73.553992499999990000), 50.0, "km"); 
+		Query query = new Query().geoCode(new GeoLocation( 45.508669900000000000,-73.553992499999990000), 500.0, "km"); 
 		query.count(numOfTweet); //You can also set the number of tweets to return per page, up to a max of 100
 		QueryResult result = twitter.search(query);
 
